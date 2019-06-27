@@ -6,6 +6,7 @@ import CreateTodo from "./components/create-todo.component";
 import EditTodo from "./components/edit-todo.component";
 import TodosList from "./components/todos-list.component";
 import CreatInscription from "./components/create-inscription";
+import InscriptionsList from "./components/list-inscription";
 
 import logo from "./logo.svg";
 
@@ -30,6 +31,9 @@ class App extends Component{
                       <li className="navbar-item">
                         <Link to="/inscription" className="nav-link">Inscribirse</Link>
                       </li>
+                      <li className="navbar-item">
+                        <Link to="/list" className="nav-link">Listar Inscripciones</Link>
+                      </li>
                     </ul>
                   </div>
                 </nav>
@@ -38,6 +42,7 @@ class App extends Component{
  	      <Route path="/edit/:id" component={EditTodo} />
 	      <Route path="/create" component={CreateTodo} />
               <Route path="/inscription" component={CreatInscription}/>
+              <Route path="/list" component={InscriptionsList}/>
 	    </Router>
 	);
     }
