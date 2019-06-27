@@ -1,0 +1,228 @@
+import React, {Component} from 'react';
+import axios from 'axios';
+
+const typeDocuments = [
+    {label:"Cedula de Ciudadanía", value:"CC"},
+    {label:"Cedula de Extranjería", value:"CE"},
+    {label:"Tarjeta de Identidad", value:"TI"}
+];
+
+export default class CreateTodo extends Component{
+    constructor(props){
+	super(props);
+	this.state = {
+	    nombres : '',
+	    apellidos : '',
+	    tipo_documento : '',
+	    numero_documento: '',
+            telefono: '',
+            direccion_residencia:'',
+            departamento:'',
+            municipio:'',
+            fecha_nacimiento:'',
+            aseguradora:'',
+            medicina_prepagada:'',
+            tipo_sangre:'',
+            rh:'',
+            genero:'',
+            grupo:'',
+            usuario_instagram:'',
+            marca_bicicleta:'',
+            ref_bicicleta:'',
+            rin_bicicleta:'',
+            anno_bicicleta:'',
+            nombre_contacto:'',
+            numero_contacto:''
+            
+	};
+	this.onChangeNombre = this.onChangeNombre.bind(this);
+	this.onChangeApellido = this.onChangeApellido.bind(this);
+        this.onChangeTipoDocumento = this.onChangeTipoDocumento.bind(this);
+        this.onChangeNumeroDocumento = this.onChangeNumeroDocumento.bind(this);
+        /*
+        this.onChangeTelefono = this.onChangeTelefono.bind(this);
+        this.onChangeDireccionResidencia = this.onChangeDireccionResidencia(this);
+        this.onChangeDepartamento = this.onChangeDepartamento(this);
+        this.onChangeMunicipio = this.onChangeMunicipio(this);
+        this.onChangeFechaNacimiento = this.onChangeFechaNacimiento(this);
+*/
+	this.onSubmit = this.onSubmit.bind(this);	
+    }
+    onChangeNombre(e){
+        this.setState({
+	    nombres : e.target.value
+	});
+    }
+    onChangeApellido(e){
+	this.setState({
+	    apellidos: e.target.value
+	});
+    }
+    onChangeTipoDocumento(e){
+        this.setState({
+	    tipo_documento: e.value
+	});
+    }
+    onChangeNumeroDocumento(e){
+	this.setState({
+	    numero_documento: e.target.value
+	});
+    }
+    onChangeTelefono(e){
+	this.setState({
+	    telefono: e.target.value
+	});
+    }
+    onChangeDireccionResidencia(e){
+	this.setState({
+	    direccion_residencia: e.target.value
+	});
+    }
+    onChangeDepartamento(e){
+	this.setState({
+	    departamento: e.target.value
+	});
+    }
+    onChangeMunicipio(e){
+	this.setState({
+	    municipio: e.target.value
+	});
+    }
+    onChangeFechaNacimiento(e){
+	this.setState({
+	    fecha_nacimiento: e.target.value
+	});
+    }
+    onChangeAseguradora(e){
+	this.setState({
+	    aseguradora: e.target.value
+	});
+    }
+    onChangeMedicinaPrepagada(e){
+	this.setState({
+	    medicina_prepagada: e.target.value
+	});
+    }
+    onChangeTipoSangre(e){
+	this.setState({
+	    tipo_sangre: e.target.value
+	});
+    }
+    onChangeRH(e){
+	this.setState({
+	    rh: e.target.value
+	});
+    }
+    onChangeGenero(e){
+	this.setState({
+	    genero: e.target.value
+	});
+    }
+    onChangeGrupo(e){
+	this.setState({
+	    grupo: e.target.value
+	});
+    }
+    onChangeUsuarioInstagram(e){
+	this.setState({
+	    usuario_instagram: e.target.value
+	});
+    }
+    onChangeMarcaBicicleta(e){
+	this.setState({
+	    marca_bicicleta: e.target.value
+	});
+    }
+    onChangeRefBicicleta(e){
+	this.setState({
+	    ref_bicicleta: e.target.value
+	});
+    }
+    onChangeRinBicicleta(e){
+	this.setState({
+	    rin_bicicleta: e.target.value
+	});
+    }
+    onChangeAnnoBicicleta(e){
+	this.setState({
+	    anno_bicicleta: e.target.value
+	});
+    }
+    onChangeNombreContacto(e){
+	this.setState({
+	    nombre_contacto: e.target.value
+	});
+    }
+    onChangeNumeroContacto(e){
+	this.setState({
+	    numero_contacto: e.target.value
+	});
+    }
+    onSubmit(e){
+	e.preventDefault();
+	console.log(`Form submitted:`);
+	console.log(`Todo Description: ${this.state.todo_description}`);
+	console.log(`Todo Responsible: ${this.state.todo_responsible}`);
+	console.log(`Todo Priority: ${this.state.todo_priority}`);
+
+	const newTodo = {
+	    todo_description : this.state.todo_description,
+	    todo_responsible : this.state.todo_responsible,
+	    todo_priority : this.state.todo_priority,
+	    todo_completed : this.state.todo_completed
+	};
+	axios.post('http://localhost:4000/todos/add', newTodo)
+	    .then(res => console.log(res.data));
+	
+	this.setState({
+	    todo_description: '',
+	    todo_responsible: '',
+	    todo_priority: '',
+	    todo_completed: false
+	});
+    }
+    render(){
+	return(
+	    <div style={{margitTop:10}}>
+              <h3>Create New Todo</h3>
+              <form onSubmit={this.onSubmit}>
+                <div className="form-group">
+                  <label>Nombres: </label>
+                  <input type="text"
+                         className="form-control"
+                         value={this.state.nombres}
+                         onChange={this.onChangeNombre}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Apellidos: </label>
+                  <input type="text"
+                         className="form-control"
+                         value={this.state.apellidos}
+                         onChange={this.onChangeApellido}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Tipo Documento: </label>
+                  <select className="form-control"
+                          onChange={this.onChangeTipoDocumento}
+                          value={this.state.tipo_documento}
+                  >
+                    {typeDocuments.map(typeDocument => <option id={typeDocument.value} value={typeDocument.value}>{typeDocument.label}</option>)}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Número de Documento: </label>
+                  <input type="text"
+                         className="form-control"
+                         value={this.state.numero_documento}
+                         onChange={this.onChangeNumeroDocumento}/>
+                </div>
+                <div className="form-group">
+                  <input type="submit" value="Create Todo" className="btn btn-primary"/>
+                </div>
+            </form>
+            </div>
+	);
+    }
+}
